@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hypothesize</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+    <!-- partial:index.partial.html -->
+    <!-- sample from https://particles.matteobruni.it/#mask -->
+    <!-- tsParticles container -->
+    <div id="tsparticles"></div>
+    <!-- partial -->
+    <script src='https://cdn.jsdelivr.net/npm/tsparticles-preset-sea-anemone@1.15.3/dist/tsparticles.preset.seaAnemone.bundle.min.js'></script>
+    <script src="./script.js"></script>
+
+    <!-- END OF TS PARTICLES -->
+
+    <img src="powerani.gif" class="freebsd">
+    <div class="topBar" id="header"></div>
+    <h3 class="title" style="color: white; font-size: 30px;">Hypothesize</h3>
+    <form class="mainBox" action="/get/gateway/" method="POST">
+        <input name="url" style="text-align: center;" class="website" placeholder="https://google.com/">
+        <input class="send" type="submit" style="color: white;" value="">
+    </form>
+</body>
+
+</html>
