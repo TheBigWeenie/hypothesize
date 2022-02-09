@@ -1,23 +1,30 @@
-// https here is necesary for some features to work, even if this is going to be behind an SSL-providing reverse proxy.
-const https = require('https');
-const fs = require('fs');
-const path = require('path');
-const Corrosion = require('corrosion');
+const port = "8080"
+const Corrosion = require('./lib/server')
+const express = require('express')
+const app = express()
 
-// you are free to use self-signed certificates here, if you plan to route through an SSL-providing reverse proxy.
-const ssl = {
-    key: fs.readFileSync(path.join(__dirname, '/ssl.key')),
-    cert: fs.readFileSync(path.join(__dirname, '/ssl.cert')),
-};
-const server = https.createServer(ssl);
 const proxy = new Corrosion({
-    codec: 'xor', // apply basic xor encryption to url parameters in an effort to evade filters. Optional.
-    prefix: '/get/' // specify the endpoint (prefix). Optional.
+    prefix: "/service/",
+    codec: "xor",
+    title: "Hypothesize",
+    forceHttps: true,
+    requestMiddleware: [
+        Corrosion.middleware.blacklist([
+            "accounts.google.com",
+        ], "Page is blocked"),
+    ]
+})
+
+app.use('/', express.static(__dirname + '/public'));
+
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + "/public/index.html")
 });
 
-proxy.bundleScripts();
+app.use('/', function (req, res) {
+  proxy.request(req,res)
+});
 
-server.on('request', (request, response) => {
-    if (request.url.startsWith(proxy.prefix)) return proxy.request(request, response);
-    response.end(fs.readFileSync(__dirname + '/index.html', 'utf-8'));
-}).on('upgrade', (clientRequest, clientSocket, clientHead) => proxy.upgrade(clientRequest, clientSocket, clientHead)).listen(8443); // port other than 443 if it is needed by other software.
+app.listen(process.env.PORT || port, () => {
+  console.log(`Hypothesize is running at localhost:${port}`)
+})
