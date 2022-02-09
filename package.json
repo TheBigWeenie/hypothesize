@@ -1,7 +1,0 @@
-{
-    "dependencies": {
-        "corrosion": "^1.0.0",
-        "openssl": "^2.0.0",
-        "uuid": "^8.3.2"
-    }
-}

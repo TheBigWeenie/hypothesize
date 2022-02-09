@@ -6,6 +6,7 @@
     <title>Hypothesize</title>
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css'>
     <link rel="stylesheet" href="./style.css">
+    <script src="app2.js"></script>
 
 </head>
 
@@ -27,6 +28,12 @@
         <input name="url" style="text-align: center;" class="website" placeholder="https://google.com/">
         <input class="send" type="submit" style="color: white;" value="">
     </form>
+    <button class="settings" style="z-index: 9; position: absolute;" onclick="showsettings()">.</button>
+    <div class="settingsmenu" id="settingsmenu">
+        <input id="input" class="input" placeholder="https://google.com/favicon.ico"></input>
+        <input id="name" class="name" placeholder="Google"></input>
+        <button onclick="clicky()" class="cloakbutton" id="cloak">Cloak!</button>
+    </div>
 </body>
 
 </html>
